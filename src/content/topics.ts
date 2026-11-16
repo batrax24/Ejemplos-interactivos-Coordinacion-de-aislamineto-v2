@@ -1,0 +1,211 @@
+import type { SourceKey } from './bibliography';
+
+export type Topic = {
+  id: number;
+  title: string;
+  minutes: string;
+  slides: string;
+  idea: string;
+  keys: string[];
+  experiments: string[];
+  sources: SourceKey[];
+};
+
+export const TOPICS: Topic[] = [
+  {
+    id: 1,
+    title: 'Introducción y coordinación de aislamiento',
+    minutes: '0–8 min',
+    slides: '1–4',
+    idea: 'Coordinar es relacionar las sobretensiones previsibles con la capacidad de los aislamientos, y añadir protección hasta alcanzar un riesgo aceptable.',
+    keys: [
+      'Esfuerzo dieléctrico: amplitud, forma, duración, polaridad y probabilidad de ocurrencia.',
+      'Capacidad soportada: depende del material, la geometría, la atmósfera y la forma de onda.',
+      'Nivel de aislamiento: conjunto de tensiones soportadas especificadas para ciertos ensayos.',
+      'El proceso es iterativo: cambiar un pararrayos obliga a revisar distancias y cadenas.',
+    ],
+    experiments: [],
+    sources: ['guion', 'slides', 'diana'],
+  },
+  {
+    id: 2,
+    title: 'Sobretensiones y ensayos normalizados',
+    minutes: '8–18 min',
+    slides: '5–9',
+    idea: 'No basta el valor máximo: importan la forma de onda y la duración, y cada tipo de sobretensión se compara con un ensayo distinto.',
+    keys: [
+      'Temporal: frecuencia industrial o cercana; fallas a tierra y rechazo de carga.',
+      'Maniobra: frente lento; energización, recierre, interrupción de corriente capacitiva.',
+      'Atmosférica: frente rápido; descarga directa o cercana.',
+      'Tensión soportada a frecuencia industrial en kV eficaces; impulsos en kV de cresta.',
+      'La onda de corriente 8/20 µs no es la onda de tensión 1,2/50 µs.',
+    ],
+    experiments: ['e01', 'e02', 'e03'],
+    sources: ['guion', 'slides', 'diana', 'iec60060'],
+  },
+  {
+    id: 3,
+    title: 'El rayo y sus efectos en una línea',
+    minutes: '18–30 min',
+    slides: '10–13',
+    idea: 'Un rayo es un fenómeno estadístico: se describe con distribuciones de corriente, no con un valor único, y afecta la línea por tres mecanismos distintos.',
+    keys: [
+      'Líder escalonado, corriente de retorno y descargas subsiguientes.',
+      'Parámetros: cresta, polaridad, frente, cola, carga transferida y di/dt.',
+      'Impacto directo en fase, impacto en guarda o torre (flameo inverso) y descarga cercana inducida.',
+      'La guarda reduce la exposición directa pero no elimina el riesgo.',
+    ],
+    experiments: ['e04', 'e14'],
+    sources: ['guion', 'slides', 'velasco'],
+  },
+  {
+    id: 4,
+    title: 'Ruptura dieléctrica y probabilidad de disrupción',
+    minutes: '30–43 min',
+    slides: '14–19',
+    idea: 'La disrupción es un proceso de ionización que depende del campo y del tiempo disponible; por eso el resultado es probabilístico y U50 no es una garantía.',
+    keys: [
+      'Avalancha: n(x) = n₀·e^((α−η)x); se necesita α > η.',
+      'Sólidos (cavidades, humedad), líquidos (partículas, burbujas) e interfaces.',
+      'Contorneo superficial y perforación son rutas distintas.',
+      'U50 o CFO: 50 % de probabilidad bajo una onda, polaridad y ambiente definidos.',
+    ],
+    experiments: ['e05', 'e06'],
+    sources: ['guion', 'slides', 'velasco', 'diana'],
+  },
+  {
+    id: 5,
+    title: 'Atmósfera, altitud y temperatura',
+    minutes: '43–51 min',
+    slides: '20–21',
+    idea: 'La densidad del aire reduce la rigidez del aislamiento externo; la corrección depende del tipo de aislamiento, la geometría y la norma aplicable.',
+    keys: [
+      'δ = (p/p₀)·(T₀/T) con T en kelvin.',
+      'En Colombia la altitud es un factor de diseño, no un detalle.',
+      'Aislamiento externo sí se corrige; aislamiento interno sellado no se corrige igual.',
+      'Temperatura: flecha del conductor, envejecimiento del sólido, resistividad del suelo y medición.',
+    ],
+    experiments: ['e07', 'e19'],
+    sources: ['guion', 'slides', 'diana', 'cardona', 'medicion'],
+  },
+  {
+    id: 6,
+    title: 'Longitud y selección de cadenas de aisladores',
+    minutes: '51–61 min',
+    slides: '22–27',
+    idea: 'La cadena se dimensiona por varios criterios y manda el más exigente: fuga por contaminación, maniobra y rayo; luego se verifica lo mecánico.',
+    keys: [
+      'Distancia de fuga (superficie) ≠ distancia de arco en seco ≠ longitud de la cadena.',
+      'La base de tensión del coeficiente mm/kV debe declararse.',
+      'N = ⌈L_f / fuga por unidad⌉ y L ≈ N·paso.',
+      'Criterio de maniobra: CFO requerido con σ = 6 % y k según la probabilidad de flameo.',
+    ],
+    experiments: ['e08', 'e09'],
+    sources: ['guion', 'slides', 'cardona', 'iec60815'],
+  },
+  {
+    id: 7,
+    title: 'Distancias entre fases y a la estructura',
+    minutes: '61–71 min',
+    slides: '28–32',
+    idea: 'La distancia eléctrica no es la distancia en reposo: el viento, la flecha y la temperatura mueven los conductores.',
+    keys: [
+      'Fase–fase, fase–estructura y fase–suelo no son criterios intercambiables.',
+      'Desplazamiento por viento: d_h = d₀ − L·sen θ.',
+      'Fórmulas empíricas de predimensionamiento no reemplazan el diseño normativo.',
+      'Las distancias de seguridad a personas y vegetación son requisitos aparte.',
+    ],
+    experiments: ['e10', 'e11'],
+    sources: ['guion', 'slides', 'velasco', 'cardona'],
+  },
+  {
+    id: 8,
+    title: 'Ubicación del cable de guarda',
+    minutes: '71–79 min',
+    slides: '33–36',
+    idea: 'El ángulo de apantallamiento describe una geometría; la protección se evalúa con un modelo de desempeño, no con un solo número.',
+    keys: [
+      'La guarda intercepta descargas y conduce la corriente a las torres.',
+      'α = arctan(Δx/Δh) medido desde la vertical, con convención declarada.',
+      'Método electrogeométrico: la distancia de choque depende de la corriente.',
+      'Falla de apantallamiento ≠ flameo inverso.',
+    ],
+    experiments: ['e12'],
+    sources: ['guion', 'slides', 'cardona', 'velasco', 'expo'],
+  },
+  {
+    id: 9,
+    title: 'Puesta a tierra y efecto de la temperatura',
+    minutes: '79–87 min',
+    slides: '37–41',
+    idea: 'La puesta a tierra limita la elevación de potencial, pero una resistencia baja no demuestra por sí sola seguridad para las personas.',
+    keys: [
+      'ρ (Ω·m) es del terreno; R (Ω) depende además de la geometría del electrodo.',
+      'Varilla vertical, contrapeso, anillos y mallas responden a suelos distintos.',
+      'V = R·I es un modelo resistivo; en impulsos aparece L·di/dt y el reparto de corriente.',
+      'Verificar tensión de paso y de contacto, y la variación estacional.',
+    ],
+    experiments: ['e13', 'e14'],
+    sources: ['guion', 'slides', 'velasco', 'expo'],
+  },
+  {
+    id: 10,
+    title: 'Ondas viajeras, reflexión y transmisión',
+    minutes: '87–96 min',
+    slides: '42–45',
+    idea: 'La sobretensión no aparece al mismo tiempo en toda la instalación: viaja, se refleja y cambia de amplitud según la impedancia que encuentra.',
+    keys: [
+      'Z_c = √(L′/C′) y v = 1/√(L′·C′) en la línea ideal sin pérdidas.',
+      'Γ = (Z₂−Z₁)/(Z₂+Z₁) y τ = 1+Γ.',
+      'Extremo abierto: la tensión puede duplicarse; cortocircuito: cae a cero.',
+      'La distancia entre pararrayos y equipo cambia el nivel de protección efectivo.',
+    ],
+    experiments: ['e15'],
+    sources: ['guion', 'slides', 'velasco', 'pararrayos'],
+  },
+  {
+    id: 11,
+    title: 'Selección y ubicación del pararrayos',
+    minutes: '96–109 min',
+    slides: '46–53',
+    idea: 'Seleccionar un descargador es verificar a la vez tensión continua, TOV, energía, nivel residual, distancia y margen de protección.',
+    keys: [
+      'ZnO sin explosores: característica V–I no lineal, sin corte brusco.',
+      'Uc ≥ 1,05·U_m/√3 en redes con eliminación automática de fallas a tierra.',
+      'La capacidad TOV se compara con la sobretensión temporal equivalente, con su duración.',
+      'M = (U_soportada/U_en equipo − 1)·100 % exige comparar cresta con cresta.',
+    ],
+    experiments: ['e16'],
+    sources: ['guion', 'slides', 'pararrayos', 'velasco', 'iec60099'],
+  },
+  {
+    id: 12,
+    title: 'Efecto y pérdidas por corona',
+    minutes: '109–116 min',
+    slides: '54–58',
+    idea: 'La corona es una ionización parcial alrededor del conductor: no necesita un arco completo y sus pérdidas crecen con el cuadrado del exceso de tensión.',
+    keys: [
+      'Incepción cuando el gradiente supera la rigidez local del aire (≈21,1 kV/cm eficaz).',
+      'Tipos: glow, Trichel, burst y streamer; luz, ruido, ozono e interferencia.',
+      'Peek: P = (242/δ)(f+25)√(r/s)(U−U₀)²·10⁻⁵ kW/km, válida para U > U₀.',
+      'Mayor radio o conductores en haz reducen el gradiente superficial.',
+    ],
+    experiments: ['e17'],
+    sources: ['guion', 'slides', 'corona'],
+  },
+  {
+    id: 13,
+    title: 'Integración y conclusiones',
+    minutes: '116–120 min',
+    slides: '59–62',
+    idea: 'Ningún componente se selecciona aislado: la solución es un conjunto verificado de cadenas, distancias, apantallamiento, tierra y descargadores.',
+    keys: [
+      'Comparar siempre tensiones de la misma onda, unidad y configuración.',
+      'Una cifra verde no siempre es una solución: hay que revisar la física.',
+      'El riesgo aceptable combina probabilidad, consecuencia, confiabilidad y costo.',
+      'La coordinación se repite cuando cambia cualquier condición del proyecto.',
+    ],
+    experiments: ['e18'],
+    sources: ['guion', 'slides', 'iec60071'],
+  },
+];

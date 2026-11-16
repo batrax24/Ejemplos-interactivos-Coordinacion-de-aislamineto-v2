@@ -1,7 +1,9 @@
-name: Desplegar laboratorio
+name: Pruebas y despliegue
 
 on:
   push:
+    branches: [main]
+  pull_request:
     branches: [main]
   workflow_dispatch:
 
@@ -11,27 +13,37 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  group: pages-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   build:
+    name: Pruebas y build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          # Node 22 LTS: es lo que necesitan jsdom y Vite 6; Node 20 está deprecado en Actions.
+          node-version: 22
           cache: npm
       - run: npm ci
       - run: npm test
       - run: npm run build
       - uses: actions/configure-pages@v5
+        if: github.event_name != 'pull_request'
+        with:
+          # Habilita Pages si aún no existe (Settings → Pages → GitHub Actions).
+          enablement: true
       - uses: actions/upload-pages-artifact@v3
+        if: github.event_name != 'pull_request'
         with:
           path: dist
+
   deploy:
+    name: Publicar en Pages
     needs: build
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     environment:
       name: github-pages

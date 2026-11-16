@@ -25,8 +25,8 @@ npm run preview  # http://localhost:4173
 npm test         # 34 pruebas: numéricas, de render y de interacción
 ```
 
-Requiere Node 20+. El progreso se guarda en `localStorage` (con copia de seguridad) y se puede exportar e importar como
-JSON.
+Requiere **Node 22 LTS** (mínimo 20.19; hay un `.nvmrc` con `22`). Esa versión la usan las pruebas —jsdom— y el flujo de
+despliegue. El progreso se guarda en `localStorage` (con copia de seguridad) y se puede exportar e importar como JSON.
 
 ## Los 13 temas y sus experimentos
 
@@ -110,7 +110,9 @@ docs/DISENO_JUEGOS.md      diseño pedagógico de cada experimento (generado des
 ## Publicación
 
 `vite.config.ts` usa `base: './'`, así que el contenido de `dist/` funciona en GitHub Pages, Netlify o cualquier
-servidor estático. El flujo `.github/workflows/deploy.yml` publica en Pages al hacer push a `main`.
+servidor estático. El flujo `.github/workflows/deploy.yml` corre `npm ci`, las pruebas y el build en **Node 22**, y publica
+`dist/` en Pages al hacer push a `main`. Si Pages aún no está activo, `configure-pages` lo habilita (`enablement: true`),
+siempre que la fuente del sitio sea *GitHub Actions* (Settings → Pages).
 
 ## Fuentes
 
